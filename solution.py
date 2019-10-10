@@ -35,7 +35,7 @@ class Solution:
             module = import_module('.'.join([self.dir_name] + list(xfile.parts))[:-3])
             res = module.main([xfile.name, self.x])
             del module
-            yield res
+            yield res, xfile
 
     def rm_dir(self):
         for the_file in os.listdir(self.dir_name):
@@ -51,7 +51,7 @@ def main(argv):
     try:
         sol = Solution(argv)
         for ans in sol.execute():
-            print(ans)
+            print(f'File {ans[1]} answer: {ans[0]}')
     except Exception as e:
         print(e)
     finally:
