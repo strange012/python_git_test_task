@@ -22,7 +22,7 @@ class Solution:
 
     dir_name = 'clone_repo'
 
-    def __init__(self, argv):
+    def setup(self, argv):
         self.repo = Repo.clone_from(argv[1], self.dir_name)
         self.commit = self.repo.commit(argv[2])
         self.files = list(py_paths(self.commit.tree))
@@ -49,7 +49,8 @@ class Solution:
 
 def main(argv):
     try:
-        sol = Solution(argv)
+        sol = Solution()
+        sol.setup(argv)
         for ans in sol.execute():
             print(f'File {ans[1]} answer: {ans[0]}')
     except Exception as e:
